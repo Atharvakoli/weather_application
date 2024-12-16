@@ -1,13 +1,12 @@
-import React from "react";
-
-import { useState } from "react";
-import WeatherApp from "./components/WeatherApp";
+import { Outlet } from "react-router-dom";
+import Home from "./components/home/Home";
 
 const App = () => {
   return (
     <>
-      <main className="min-h-screen bg-gradient-to-br from-blue-400 to-blue-700 p-4">
-        <WeatherApp />
+      <main className="h-full bg-gradient-to-br from-blue-400 to-blue-700 p-4">
+        <Home />
+        <Outlet />
       </main>
     </>
   );

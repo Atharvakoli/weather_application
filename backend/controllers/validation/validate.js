@@ -2,8 +2,6 @@ const validateDetails = (q, days) => {
   let errors = [];
   if (!q || typeof q !== "string")
     errors.push("Query is required and should be string.");
-  if (typeof days !== "string")
-    errors.push("Days is required and should be string.");
   return errors;
 };
 

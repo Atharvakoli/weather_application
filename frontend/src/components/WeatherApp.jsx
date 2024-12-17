@@ -60,7 +60,7 @@ const WeatherApp = () => {
             onClick={() => setNavigation("forecast")}
             className="bg-gray-100 p-4 rounded-lg cursor-pointer "
           >
-            <h2 className="text-xl font-semibold mb-2">5-Day Forecast</h2>
+            <h2 className="text-xl font-semibold mb-2">Forecast</h2>
             <div className="flex justify-between">
               {forecastData.map((day, index) => (
                 <div key={index} className="text-center">

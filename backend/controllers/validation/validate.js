@@ -1,3 +1,5 @@
+// validations of wheatherData
+
 const validateDetails = (q, days) => {
   let errors = [];
   if (!q || typeof q !== "string")
@@ -66,7 +68,6 @@ const validateMarineDetails = (q, days) => {
   if (!q || typeof q !== "string") {
     errors.push("Query is required and should be string.");
   }
-  console.log(typeof parseInt(days), typeof days);
   if (
     !days ||
     typeof days !== "string" ||

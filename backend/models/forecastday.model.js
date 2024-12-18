@@ -11,21 +11,21 @@ module.exports = (sequelize, DataTypes) => {
       date: DataTypes.STRING,
       date_epoch: DataTypes.BIGINT,
       dayId: {
-        type: sequelize.UUID,
+        type: DataTypes.UUID,
         references: {
           model: "day",
           key: "id",
         },
       },
       astroId: {
-        type: sequelize.UUID,
+        type: DataTypes.UUID,
         references: {
           model: "astro",
           key: "id",
         },
       },
       hourId: {
-        type: sequelize.UUID,
+        type: DataTypes.UUID,
         references: {
           model: "hour",
           key: "id",

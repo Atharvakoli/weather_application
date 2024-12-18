@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       forecastdayId: {
-        type: sequelize.UUID,
+        type: DataTypes.UUID,
         references: {
           model: "forecastday",
           key: "id",

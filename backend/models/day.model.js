@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       daily_chance_of_snow: DataTypes.INTEGER,
       uv: DataTypes.FLOAT,
       conditionId: {
-        type: sequelize.UUID,
+        type: DataTypes.UUID,
         references: {
           model: "condition",
           key: "id",

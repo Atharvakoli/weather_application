@@ -1,4 +1,7 @@
+import { useRef } from "react";
+
 const Home = () => {
+  const location = useRef(null);
   return (
     <>
       <div className="max-w-xl mx-auto mb-10 bg-white rounded-lg shadow-lg overflow-hidden">
@@ -7,6 +10,7 @@ const Home = () => {
           <div className="relative">
             <input
               type="text"
+              ref={location}
               placeholder="Search for a location..."
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />

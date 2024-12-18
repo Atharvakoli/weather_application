@@ -1,73 +1,72 @@
-import { MapPin, Clock, AlertTriangle } from "lucide-react";
+import { useContext } from "react";
+import { WeatherContext } from "../../context/dataFetchContext";
 const Alerts = () => {
-  let alerts = {
-    location: {
-      name: "Gujrat",
-      region: "Punjab",
-      country: "Pakistan",
-      lat: 32.5667,
-      lon: 74.0833,
-      tz_id: "Asia/Karachi",
-      localtime_epoch: 1734357120,
-      localtime: "2024-12-16 18:52",
-    },
-    alerts: {
-      alert: [],
-    },
-  };
+  const { weatherState } = useContext(WeatherContext);
+  const { alerts } = weatherState.weather_alerts;
+
   return (
     <div className="h-screen bg-gray-100 p-4 rounded-lg cursor-pointer">
-      <div className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center p-4">
-        <div className="bg-white rounded-lg shadow-xl overflow-hidden max-w-md w-full">
-          <div className="bg-blue-500 text-white p-4">
-            <h1 className="text-2xl font-bold flex items-center">
-              <MapPin className="mr-2" />
-              {location.name}, {location.country}
-            </h1>
-            <p className="text-blue-100">{location.region}</p>
-          </div>
-          <div className="p-4">
-            <div className="grid grid-cols-2 gap-4 mb-4">
-              <div>
-                <p className="text-gray-500 text-sm">Latitude</p>
-                <p className="font-semibold">{location.lat}</p>
+      {alerts.alert.length > 1 ? (
+        alerts.alert.map((alert, index) => (
+          <div key={index} className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+            <div
+              className={`rounded-lg shadow-lg overflow-hidden bg-yellow-100 border-yellow-500 text-yellow-700`}
+            >
+              <div className="p-4 sm:p-6">
+                <div className="flex flex-wrap items-center justify-between mb-4">
+                  <h2 className="text-2xl font-bold">{alert.event}</h2>
+                  <span
+                    className={`px-3 py-1 rounded-full text-sm font-semibold bg-gray-500 text-white`}
+                  >
+                    {alert.urgency}
+                  </span>
+                </div>
+                <p className="text-lg mb-4">{alert.headline}</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <h3 className="font-semibold mb-1">Affected Areas:</h3>
+                    <p>{alert.areas}</p>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-1">Category:</h3>
+                    <p>{alert.category}</p>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-1">Certainty:</h3>
+                    <p>{alert.certainty}</p>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-1">Message Type:</h3>
+                    <p>{alert.msgtype}</p>
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <h3 className="font-semibold mb-1">Effective:</h3>
+                  <p>{new Date(alert.effective).toLocaleString()}</p>
+                </div>
+                <div className="mb-4">
+                  <h3 className="font-semibold mb-1">Expires:</h3>
+                  <p>{new Date(alert.expires).toLocaleString()}</p>
+                </div>
+                <div className="mb-4">
+                  <h3 className="font-semibold mb-2">Description:</h3>
+                  <p className="whitespace-pre-line">{alert.desc}</p>
+                </div>
+                <div className="mb-4">
+                  <h3 className="font-semibold mb-2">Instructions:</h3>
+                  <p className="whitespace-pre-line">{alert.instruction}</p>
+                </div>
+                <div>
+                  <h3 className="font-semibold mb-1">Note:</h3>
+                  <p>{alert.note}</p>
+                </div>
               </div>
-              <div>
-                <p className="text-gray-500 text-sm">Longitude</p>
-                <p className="font-semibold">{location.lon}</p>
-              </div>
-            </div>
-            <div className="mb-4">
-              <p className="text-gray-500 text-sm">Time Zone</p>
-              <p className="font-semibold">{location.tz_id}</p>
-            </div>
-            <div className="flex items-center justify-between border-t border-gray-200 pt-4">
-              <div className="flex items-center">
-                <Clock className="text-gray-400 mr-2" />
-                <p className="text-gray-600">Local Time</p>
-              </div>
-              <p className="font-semibold">{location.localtime}</p>
             </div>
           </div>
-          <div className="bg-gray-50 p-4">
-            <div className="flex items-center">
-              <AlertTriangle className="text-yellow-500 mr-2" />
-              <h2 className="text-lg font-semibold">Alerts</h2>
-            </div>
-            {alerts.alerts.length > 0 ? (
-              <ul className="mt-2 space-y-2">
-                {alerts.alerts.map((alert, index) => (
-                  <li key={index} className="text-red-600">
-                    {alert}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-gray-600 mt-2">No current alerts</p>
-            )}
-          </div>
-        </div>
-      </div>
+        ))
+      ) : (
+        <p>No current weather alerts</p>
+      )}
     </div>
   );
 };

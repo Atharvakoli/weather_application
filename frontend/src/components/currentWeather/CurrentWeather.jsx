@@ -1,117 +1,91 @@
+import { useContext } from "react";
+import { WeatherContext } from "../../context/dataFetchContext";
+import { Cloud, Droplets, Eye, Gauge, Thermometer, Wind } from "lucide-react";
+import WeatherInfoCard from "./WeatherInfoCard";
+
 const CurrentWeather = () => {
-  const weatherData = {
-    location: {
-      name: "Virar",
-      region: "Maharashtra",
-      country: "India",
-      lat: 19.4667,
-      lon: 72.8,
-      tz_id: "Asia/Kolkata",
-      localtime_epoch: 1734353584,
-      localtime: "2024-12-16 18:23",
-    },
-    current: {
-      last_updated_epoch: 1734353100,
-      last_updated: "2024-12-16 18:15",
-      temp_c: 23.5,
-      temp_f: 74.3,
-      is_day: 0,
-      condition: {
-        text: "Clear",
-        icon: "//cdn.weatherapi.com/weather/64x64/night/113.png",
-        code: 1000,
-      },
-      wind_mph: 9.2,
-      wind_kph: 14.8,
-      wind_degree: 330,
-      wind_dir: "NNW",
-      pressure_mb: 1012,
-      pressure_in: 29.87,
-      precip_mm: 0,
-      precip_in: 0,
-      humidity: 53,
-      cloud: 0,
-      feelslike_c: 25,
-      feelslike_f: 77,
-      windchill_c: 23.5,
-      windchill_f: 74.3,
-      heatindex_c: 25,
-      heatindex_f: 77,
-      dewpoint_c: 13.3,
-      dewpoint_f: 56,
-      vis_km: 10,
-      vis_miles: 6,
-      uv: 0,
-      gust_mph: 18.1,
-      gust_kph: 29.2,
-    },
-  };
+  const { weatherState } = useContext(WeatherContext);
+  const { location, current } = weatherState.current_weather || {};
+
   return (
-    <div className="mx-auto mb-10 h-screen bg-white rounded-lg shadow-lg overflow-hidden">
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <div className="rounded-lg shadow-xl p-6 w-full max-w-md">
-          <div className="flex justify-between items-start mb-6">
-            <div>
-              <h1 className="text-3xl font-bold">
-                {weatherData.location.name}
-              </h1>
-              <p>{`${weatherData.location.region}, ${weatherData.location.country}`}</p>
-            </div>
-            <div className="text-right">
-              <p className="text-sm ">{weatherData.location.localtime}</p>
-              <p className="text-xs">
-                Last updated: {weatherData.current.last_updated}
-              </p>
-            </div>
-          </div>
+    <div className="min-h-screen bg-gray-100 p-4 sm:p-6 md:p-8 rounded-lg">
+      <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+        <div className="p-6 bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+          <h1 className="text-3xl font-bold">{location.name}</h1>
+          <p className="text-xl">
+            {location.region}, {location.country}
+          </p>
+          <p className="text-sm mt-2">Local Time: {location.localtime}</p>
+          <p className="text-sm">
+            Lat: {location.lat}, Lon: {location.lon}
+          </p>
+        </div>
 
-          <div className="flex items-center justify-center my-8">
+        <div className="p-6 flex flex-wrap items-center justify-between border-b">
+          <div className="flex items-center mb-4 sm:mb-0">
             <img
-              src={weatherData.current.condition.icon}
-              alt={weatherData.current.condition.text}
-              className="w-24 h-24 mr-4"
+              src={current.condition.icon}
+              alt={current.condition.text}
+              className="w-16 h-16 mr-4"
             />
-            <div className="text-center">
-              <h2 className="text-6xl font-bold">
-                {weatherData.current.temp_c}°C
-              </h2>
-              <p className="text-xl">{weatherData.current.condition.text}</p>
+            <div>
+              <h2 className="text-4xl font-bold">{current.temp_c}°C</h2>
+              <p className="text-gray-600">{current.condition.text}</p>
             </div>
           </div>
-
-          <div className="grid grid-cols-2 gap-4 mb-6">
-            <div className=" rounded-lg p-3">
-              <p className="text-sm">Feels Like</p>
-              <p className="text-xl font-semibold">
-                {weatherData.current.feelslike_c}°C
-              </p>
-            </div>
-            <div className="brounded-lg p-3">
-              <p className="text-sm">Humidity</p>
-              <p className="text-xl font-semibold">
-                {weatherData.current.humidity}%
-              </p>
-            </div>
-            <div className="rounded-lg p-3">
-              <p className="text-sm">Wind</p>
-              <p className="text-xl font-semibold">
-                {weatherData.current.wind_kph} km/h
-              </p>
-            </div>
-            <div className="rounded-lg p-3">
-              <p className="text-sm">Pressure</p>
-              <p className="text-xl font-semibold">
-                {weatherData.current.pressure_mb} mb
-              </p>
-            </div>
-          </div>
-
-          <div className="text-center text-sm">
-            <p>
-              UV Index: {weatherData.current.uv} | Visibility:{" "}
-              {weatherData.current.vis_km} km
+          <div className="text-right">
+            <p className="text-sm text-gray-600">
+              Feels like: {current.feelslike_c}°C
+            </p>
+            <p className="text-sm text-gray-600">
+              Last updated: {current.last_updated}
             </p>
           </div>
+        </div>
+
+        <div className="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <WeatherInfoCard
+            icon={<Wind className="w-6 h-6" />}
+            title="Wind"
+            value={`${current.wind_kph} km/h ${current.wind_dir}`}
+          />
+          <WeatherInfoCard
+            icon={<Droplets className="w-6 h-6" />}
+            title="Humidity"
+            value={`${current.humidity}%`}
+          />
+          <WeatherInfoCard
+            icon={<Gauge className="w-6 h-6" />}
+            title="Pressure"
+            value={`${current.pressure_mb} mb`}
+          />
+          <WeatherInfoCard
+            icon={<Cloud className="w-6 h-6" />}
+            title="Cloud Cover"
+            value={`${current.cloud}%`}
+          />
+          <WeatherInfoCard
+            icon={<Eye className="w-6 h-6" />}
+            title="Visibility"
+            value={`${current.vis_km} km`}
+          />
+          <WeatherInfoCard
+            icon={<Thermometer className="w-6 h-6" />}
+            title="UV Index"
+            value={current.uv.toString()}
+          />
+        </div>
+
+        {/* Additional Information */}
+        <div className="p-6 bg-gray-50 text-sm text-gray-600">
+          <h3 className="font-semibold mb-2">Additional Information:</h3>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <li>Precipitation: {current.precip_mm} mm</li>
+            <li>Dew Point: {current.dewpoint_c}°C</li>
+            <li>Wind Chill: {current.windchill_c}°C</li>
+            <li>Heat Index: {current.heatindex_c}°C</li>
+            <li>Gust: {current.gust_kph} km/h</li>
+          </ul>
         </div>
       </div>
     </div>

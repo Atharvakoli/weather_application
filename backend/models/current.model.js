@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       temp_f: DataTypes.FLOAT,
       is_day: DataTypes.INTEGER,
       conditionId: {
-        type: sequelize.UUID,
+        type: DataTypes.UUID,
         references: {
           model: "condition",
           key: "id",

@@ -1,33 +1,13 @@
 import { MapPin, Sun, Moon, Clock } from "lucide-react";
+import { useContext } from "react";
+import { WeatherContext } from "../../context/dataFetchContext";
 const Astronomy = () => {
-  const data = {
-    location: {
-      name: "Mumbai",
-      region: "Maharashtra",
-      country: "India",
-      lat: 18.975,
-      lon: 72.826,
-      tz_id: "Asia/Kolkata",
-      localtime_epoch: 1734354404,
-      localtime: "2024-12-16 18:36",
-    },
-    astronomy: {
-      astro: {
-        sunrise: "07:12 AM",
-        sunset: "06:12 PM",
-        moonrise: "10:51 PM",
-        moonset: "10:59 AM",
-        moon_phase: "Waning Gibbous",
-        moon_illumination: 80,
-        is_moon_up: 1,
-        is_sun_up: 0,
-      },
-    },
-  };
+  const { weatherState } = useContext(WeatherContext);
+  const data = weatherState.weather_astronomy;
   return (
-    <div className="min-h-screen bg-gray-100 p-4 rounded-lg cursor-pointer">
+    <div className=" bg-gray-100 p-4 rounded-lg cursor-pointer">
       <div className="flex items-center justify-center p-4">
-        <div className="bg-gray-800 text-white rounded-lg shadow-xl max-w-md w-full">
+        <div className="bg-gray-800 text-white rounded-lg shadow-xl w-full">
           <div className="bg-gray-700 rounded-t-lg p-6">
             <div className="flex items-center justify-between">
               <h1 className="text-2xl font-bold flex items-center">

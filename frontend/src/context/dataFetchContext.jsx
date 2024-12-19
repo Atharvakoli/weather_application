@@ -21,6 +21,8 @@ function reducer(state, action) {
       return { ...state, loading: false, weather_astronomy: action.payload };
     case "weather_marine":
       return { ...state, loading: false, weather_marine: action.payload };
+    case "search_weather":
+      return { ...state, loading: false, search_weather: action.payload };
     default:
       console.error("Invalid action type:", action.type);
       return state;
@@ -35,6 +37,7 @@ const initialState = {
   weather_alerts: null,
   weather_astronomy: null,
   weather_marine: null,
+  search_weather: null,
   loading: false,
   error: null,
 };
@@ -63,7 +66,7 @@ function WeatherContextProvider({ children }) {
   const apiEndpoints = {
     current_weather: "http://localhost:3000/current_weather",
     weather_forecast: "http://localhost:3000/weather_forecast",
-    weather_search: "http://localhost:3000/weather_search",
+    search_weather: "http://localhost:3000/weather_search",
     weather_history: "http://localhost:3000/weather_history",
     weather_alerts: "http://localhost:3000/weather_alerts",
     weather_astronomy: "http://localhost:3000/weather_astronomy",

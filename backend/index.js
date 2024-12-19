@@ -1,5 +1,7 @@
 const express = require("express");
+const axios = require("axios");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const {
   currentWeather,
   weatherForcast,
@@ -27,8 +29,14 @@ let PORT = process.env.PORT;
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:5173",
+  })
+);
 app.use(express.json());
+app.use(cookieParser());
 
 app.get("/current_weather", currentWeather);
 app.get("/weather_forecast", weatherForcast);
@@ -52,3 +60,5 @@ app.post("/condition", addCondition);
 app.listen(PORT, () =>
   console.log(`Example app listening on http://localhost:${PORT}`)
 );
+
+module.exports = app;

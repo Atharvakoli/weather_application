@@ -64,6 +64,14 @@ async function getTimeZoneWheather(query) {
   return response.data;
 }
 
+const setSecureCookie = (res, token) => {
+  res.cookie("access_token", token, {
+    httpOnly: true,
+    maxAge: 60 * 1000,
+  });
+  return res;
+};
+
 module.exports = {
   getWeather,
   getWeatherForcast,
@@ -74,4 +82,5 @@ module.exports = {
   getMarineWheather,
   getAstronomyWheather,
   getTimeZoneWheather,
+  setSecureCookie,
 };

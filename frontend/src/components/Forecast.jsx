@@ -3,15 +3,15 @@ import { setNavigation } from "../helper/index.helper";
 import { WeatherContext } from "../context/dataFetchContext";
 import { useContext, useEffect } from "react";
 
-const Forecast = () => {
+const Forecast = ({ name }) => {
   const { weatherState, fetchDataForType } = useContext(WeatherContext);
   const { forecast } = weatherState.weather_forecast;
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchDataForType("weather_forecast", { location: "virar", days: 5 });
-  }, [fetchDataForType]);
+    fetchDataForType("weather_forecast", { location: name, days: 5 });
+  }, [name, fetchDataForType]);
 
   return (
     <div

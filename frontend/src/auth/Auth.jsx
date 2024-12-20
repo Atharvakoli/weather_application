@@ -11,7 +11,7 @@ export const Auth = () => {
 
   return (
     <div className=" bg-neutral-900 text-neutral-200 min-h-screen flex flex-col items-center justify-center">
-      <h1 className="text-2xl mb-8">Welcome to OAuth API Server</h1>
+      <h1 className="text-2xl mb-8">Log In</h1>
       <div className="flex items-center gap-4">
         <button
           onClick={() => authenticateViaOAuth("github")}

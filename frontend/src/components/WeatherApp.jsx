@@ -2,7 +2,7 @@ import CurrentWeather from "./CurrentWeather";
 import Forecast from "./Forecast";
 import { setNavigation } from "../helper/index.helper";
 import { useNavigate } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useMemo } from "react";
 import { WeatherContext } from "../context/dataFetchContext";
 
 const WeatherApp = () => {
@@ -12,48 +12,43 @@ const WeatherApp = () => {
   const name = weatherState.search_weather[0]?.name.toLowerCase();
 
   useEffect(() => {
-    fetchDataForType("weather_history", {
-      location: name,
-      dt: "2024-01-01",
-    });
+    const fetchWeatherData = async () => {
+      await Promise.all([
+        fetchDataForType("weather_history", {
+          location: name,
+          dt: "2024-01-01",
+        }),
+        fetchDataForType("weather_alerts", { location: name }),
+        fetchDataForType("weather_marine", { location: name, days: 5 }),
+        fetchDataForType("weather_astronomy", {
+          location: name,
+          dt: "2024-01-01",
+        }),
+      ]);
+    };
+
+    fetchWeatherData();
   }, [name, fetchDataForType]);
 
   let { forecast } = weatherState.weather_history;
   let days = forecast.forecastday.length;
-  let total = 0;
-  forecast.forecastday.forEach((day) => (total += day.day.maxtemp_c));
-  let avg = total / days;
-
-  useEffect(() => {
-    fetchDataForType("weather_alerts", {
-      location: name,
-    });
-  }, [name, fetchDataForType]);
+  let avg = useMemo(() => {
+    if (!forecast || forecast.forecastday.length === 0) return 0;
+    const total = forecast.forecastday.reduce(
+      (sum, day) => sum + day.day.maxtemp_c,
+      0
+    );
+    return total / forecast.forecastday.length;
+  }, [forecast]);
 
   const { alerts } = weatherState.weather_alerts;
-
-  useEffect(() => {
-    fetchDataForType("weather_marine", {
-      location: name,
-      days: 5,
-    });
-  }, [name, fetchDataForType]);
-
   const marine = weatherState.weather_marine;
   const { forecastday } = marine.forecast;
-
-  useEffect(() => {
-    fetchDataForType("weather_astronomy", {
-      location: name,
-      dt: "2024-01-01",
-    });
-  }, [name, fetchDataForType]);
-
   const { astronomy } = weatherState.weather_astronomy;
 
   return (
     <>
-      <div className="max-w-8xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+      <div className="max-w-8xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden p-2">
         {error && (
           <p className="text-red-500 p-2">
             {error && `${name} Weather NOT FOUND`}
@@ -105,7 +100,7 @@ const WeatherApp = () => {
             onClick={() => setNavigation("alerts", navigate)}
           >
             <h3 className="text-lg font-semibold mb-2">Alerts</h3>
-            {alerts.alert.length > 1 ? (
+            {alerts && alerts.alert.length > 1 ? (
               alerts.map((data, index) => (
                 <>
                   <h2 key={index} className="text-2xl font-bold">

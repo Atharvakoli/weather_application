@@ -12,19 +12,35 @@ import Astronomy from "../components/astoronomy/Astronomy";
 import CurrentWeather from "../components/currentWeather/CurrentWeather";
 import App from "../App";
 import Admin from "../components/admin/Admin";
-import { GithubProfile, GoogleProfile } from "../auth/auth.component";
 import { Auth } from "../auth/Auth";
+import Location from "../components/weather/Location";
+import Current from "../components/weather/Current";
+import Condition from "../components/weather/Condition";
+import Astro from "../components/weather/Astro";
+import Hour from "../components/weather/Hour";
+import Day from "../components/weather/Day";
+import Forecastday from "../components/weather/Forecastday";
+import Forecasts from "../components/weather/Forcast";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<App />}>
-        <Route path="auth" element={<Auth />} />
-        <Route path="/v2/profile/github" element={<GithubProfile />} />
-        {/* <Route path="/v1/profile/google" element={<GoogleProfile />} /> */}
-        <Route path="/v2/profile/google" element={<GoogleProfile />} />
-        <Route path="/admin" element={<Admin />}></Route>
         <Route index element={<WeatherApp />} />
+
+        <Route path="auth" element={<Auth />} />
+
+        <Route path="admin" element={<Admin />}>
+          <Route index element={<Location />} />
+          <Route path="current" element={<Current />} />
+          <Route path="forecast" element={<Forecasts />} />
+          <Route path="forecastday" element={<Forecastday />} />
+          <Route path="day" element={<Day />} />
+          <Route path="hour" element={<Hour />} />
+          <Route path="astro" element={<Astro />} />
+          <Route path="condition" element={<Condition />} />
+        </Route>
+
         <Route path="current-weather" element={<CurrentWeather />} />
         <Route path="forecast" element={<Forecast />} />
         <Route path="history" element={<History />} />
@@ -32,6 +48,7 @@ const router = createBrowserRouter(
         <Route path="marine" element={<Marine />} />
         <Route path="astronomy" element={<Astronomy />} />
       </Route>
+      ;
     </>
   )
 );

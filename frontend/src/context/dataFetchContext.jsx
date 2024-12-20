@@ -64,13 +64,17 @@ function WeatherContextProvider({ children }) {
   }, [weatherState]);
 
   const apiEndpoints = {
-    current_weather: "http://localhost:3000/current_weather",
-    weather_forecast: "http://localhost:3000/weather_forecast",
-    search_weather: "http://localhost:3000/weather_search",
-    weather_history: "http://localhost:3000/weather_history",
-    weather_alerts: "http://localhost:3000/weather_alerts",
-    weather_astronomy: "http://localhost:3000/weather_astronomy",
-    weather_marine: "http://localhost:3000/weather_marine",
+    current_weather: `${import.meta.env.VITE_SERVER_BASE_URL}/current_weather`,
+    weather_forecast: `${
+      import.meta.env.VITE_SERVER_BASE_URL
+    }/weather_forecast`,
+    search_weather: `${import.meta.env.VITE_SERVER_BASE_URL}/weather_search`,
+    weather_history: `${import.meta.env.VITE_SERVER_BASE_URL}/weather_history`,
+    weather_alerts: `${import.meta.env.VITE_SERVER_BASE_URL}/weather_alerts`,
+    weather_astronomy: `${
+      import.meta.env.VITE_SERVER_BASE_URL
+    }/weather_astronomy`,
+    weather_marine: `${import.meta.env.VITE_SERVER_BASE_URL}/weather_marine`,
   };
 
   const fetchDataForType = useCallback(async (type, { location, days, dt }) => {

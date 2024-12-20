@@ -67,7 +67,11 @@ async function getTimeZoneWheather(query) {
 const setSecureCookie = (res, token) => {
   res.cookie("access_token", token, {
     httpOnly: true,
-    maxAge: 60 * 1000,
+    maxAge: 60 * 5000,
+  });
+  res.cookie("access_token_frontend", token, {
+    httpOnly: false,
+    maxAge: 60 * 60 * 1000,
   });
   return res;
 };

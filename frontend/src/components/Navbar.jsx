@@ -1,9 +1,11 @@
+import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import { Cloud, Sun, Search, MapPin } from "lucide-react";
 import { useContext, useEffect, useRef, useState } from "react";
 import { WeatherContext } from "../context/dataFetchContext";
 
 const Navbar = () => {
+  const accessToken = Cookies.get("access_token_frontend") || "";
   const { weatherState, fetchDataForType } = useContext(WeatherContext);
   const { loading } = weatherState;
   const [value, setValue] = useState("");
@@ -101,7 +103,11 @@ const Navbar = () => {
 
         <div className="flex items-center space-x-4">
           <Link to="/">Weather</Link>
-          <Link to="/admin">Admin</Link>
+          {!accessToken ? (
+            <Link to="/auth">Login</Link>
+          ) : (
+            <Link to="admin">Admin</Link>
+          )}
         </div>
       </div>
     </nav>

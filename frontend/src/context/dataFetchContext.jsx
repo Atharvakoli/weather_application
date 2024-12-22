@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createContext, useCallback, useEffect, useReducer } from "react";
 import { buildApiUrl } from "../helper/index.helper";
 
@@ -23,6 +24,8 @@ function reducer(state, action) {
       return { ...state, loading: false, weather_marine: action.payload };
     case "search_weather":
       return { ...state, loading: false, search_weather: action.payload };
+    case "weathers":
+      return { ...state, loading: false, weathers: action.payload };
     default:
       console.error("Invalid action type:", action.type);
       return state;
@@ -30,6 +33,7 @@ function reducer(state, action) {
 }
 
 const initialState = {
+  weathers: null,
   current_weather: null,
   weather_forecast: null,
   weather_search: null,
@@ -97,12 +101,56 @@ function WeatherContextProvider({ children }) {
       dispatch({ type, payload: data });
     } catch (error) {
       console.error(`Failed to fetch ${type}:`, error);
-      dispatch({ type: "error", payload: error.message });
+
+      const errorMessage =
+        error.response?.data?.message || `Error: ${error.message}`;
+      dispatch({ type: "error", payload: errorMessage });
+    }
+  }, []);
+
+  const postData = useCallback(async (details, handleShowMessage) => {
+    dispatch({ type: "loading" });
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_BASE_URL}/weathers`,
+        details
+      );
+      handleShowMessage();
+      dispatch({ type: "weathers", payload: response.data });
+    } catch (error) {
+      console.log(error);
+      console.error(`Failed to post data weathers":`, error);
+
+      const errorMessage =
+        error.response?.data?.message || `Error: ${error.message}`;
+
+      dispatch({ type: "error", payload: errorMessage });
+    }
+  }, []);
+
+  const getData = useCallback(async (handleShowMessage) => {
+    dispatch({ type: "loading" });
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_SERVER_BASE_URL}/weathers`
+      );
+      handleShowMessage();
+      dispatch({ type: "weathers", payload: response.data });
+    } catch (error) {
+      console.log(error);
+      console.error(`Failed to get data weathers":`, error);
+
+      const errorMessage =
+        error.response?.data?.message || `Error: ${error.message}`;
+
+      dispatch({ type: "error", payload: errorMessage });
     }
   }, []);
 
   return (
-    <WeatherContext.Provider value={{ weatherState, fetchDataForType }}>
+    <WeatherContext.Provider
+      value={{ weatherState, fetchDataForType, postData, getData }}
+    >
       {children}
     </WeatherContext.Provider>
   );

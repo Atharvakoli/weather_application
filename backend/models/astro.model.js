@@ -16,6 +16,13 @@ module.exports = (sequelize, DataTypes) => {
       moon_illumination: { type: DataTypes.INTEGER },
       is_moon_up: { type: DataTypes.BOOLEAN },
       is_sun_up: { type: DataTypes.BOOLEAN },
+      forecastdayId: {
+        type: DataTypes.UUID,
+        references: {
+          model: "forecastday",
+          key: "id",
+        },
+      },
     },
     { timestamps: true }
   );

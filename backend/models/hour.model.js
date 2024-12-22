@@ -13,10 +13,10 @@ module.exports = (sequelize, DataTypes) => {
       temp_c: { type: DataTypes.FLOAT },
       temp_f: { type: DataTypes.FLOAT },
       is_day: { type: DataTypes.BOOLEAN },
-      conditionId: {
+      forecastdayId: {
         type: DataTypes.UUID,
         references: {
-          model: "condition",
+          model: "forecastday",
           key: "id",
         },
       },
@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
       gust_kph: { type: DataTypes.FLOAT },
       uv: { type: DataTypes.FLOAT },
     },
-    { timestampe: true }
+    { timestamps: true }
   );
 
   hour.associate = (models) => {

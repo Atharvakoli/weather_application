@@ -11,6 +11,30 @@ module.exports = (sequelize, DataTypes) => {
       text: DataTypes.STRING,
       icon: DataTypes.STRING,
       code: DataTypes.INTEGER,
+      currentId: {
+        type: DataTypes.UUID,
+        allowNull: true,
+        references: {
+          model: "current",
+          key: "id",
+        },
+      },
+      hourId: {
+        type: DataTypes.UUID,
+        allowNull: true,
+        references: {
+          model: "hour",
+          key: "id",
+        },
+      },
+      dayId: {
+        type: DataTypes.UUID,
+        allowNull: true,
+        references: {
+          model: "current",
+          key: "id",
+        },
+      },
     },
     { timestamps: true }
   );

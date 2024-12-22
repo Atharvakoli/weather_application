@@ -8,122 +8,115 @@ module.exports = {
       },
       last_updated_epoch: {
         type: Sequelize.BIGINT,
-        allowNull: true,
+        allowNull: false,
       },
       last_updated: {
         type: Sequelize.DATE,
-        allowNull: true,
+        allowNull: false,
       },
       temp_c: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       temp_f: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       is_day: {
         type: Sequelize.INTEGER,
-        allowNull: true,
-      },
-      conditionId: {
-        type: Sequelize.UUID,
-        references: {
-          model: "conditions",
-          key: "id",
-        },
+        allowNull: false,
       },
       wind_mph: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       wind_kph: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       wind_degree: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
       },
       wind_dir: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       pressure_mb: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       pressure_in: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       precip_mm: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       precip_in: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       humidity: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
       },
       cloud: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
       },
       feelslike_c: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       feelslike_f: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       windchill_c: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       windchill_f: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       heatindex_c: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       heatindex_f: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       dewpoint_c: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       dewpoint_f: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       vis_km: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       vis_miles: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       uv: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       gust_mph: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       gust_kph: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       createdAt: {
         type: Sequelize.DATE,

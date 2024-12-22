@@ -1,22 +1,23 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("conditions", {
+    await queryInterface.createTable("forecastdays", {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
+        allowNull: false,
       },
-      text: {
-        type: Sequelize.STRING,
+      date: Sequelize.STRING,
+      date_epoch: Sequelize.BIGINT,
+      forecastId: {
+        type: Sequelize.UUID,
         allowNull: true,
-      },
-      icon: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      code: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
+        references: {
+          model: "forecasts",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -28,8 +29,7 @@ module.exports = {
       },
     });
   },
-
   down: async (queryInterface) => {
-    await queryInterface.dropTable("conditions");
+    await queryInterface.dropTable("forecastdays");
   },
 };

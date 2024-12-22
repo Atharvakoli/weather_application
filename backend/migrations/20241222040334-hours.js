@@ -40,10 +40,11 @@ module.exports = {
       gust_mph: Sequelize.FLOAT,
       gust_kph: Sequelize.FLOAT,
       uv: Sequelize.FLOAT,
-      conditionId: {
+      forecastdayId: {
         type: Sequelize.UUID,
+        allowNull: false,
         references: {
-          model: "conditions",
+          model: "forecastdays",
           key: "id",
         },
         onUpdate: "CASCADE",

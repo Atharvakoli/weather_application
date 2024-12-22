@@ -10,24 +10,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       date: DataTypes.STRING,
       date_epoch: DataTypes.BIGINT,
-      dayId: {
+      forecastId: {
         type: DataTypes.UUID,
+        allowNull: false,
         references: {
-          model: "day",
-          key: "id",
-        },
-      },
-      astroId: {
-        type: DataTypes.UUID,
-        references: {
-          model: "astro",
-          key: "id",
-        },
-      },
-      hourId: {
-        type: DataTypes.UUID,
-        references: {
-          model: "hour",
+          model: "forecast",
           key: "id",
         },
       },

@@ -5,7 +5,7 @@ const Alerts = () => {
   const { alerts } = weatherState.weather_alerts;
 
   return (
-    <div className="h-screen bg-gray-100 p-4 rounded-lg cursor-pointer">
+    <div className="bg-gray-100 p-4 rounded-lg cursor-pointer">
       {alerts.alert.length > 1 ? (
         alerts.alert.map((alert, index) => (
           <div key={index} className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">

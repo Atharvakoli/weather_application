@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { WeatherContext } from "../../context/dataFetchContext";
 import { Cloud, Droplets, Eye, Gauge, Thermometer, Wind } from "lucide-react";
 import WeatherInfoCard from "./WeatherInfoCard";
-import { handleSave } from "../../helper/index.helper";
 
 const CurrentWeather = () => {
   const { weatherState } = useContext(WeatherContext);
@@ -10,13 +9,6 @@ const CurrentWeather = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 sm:p-6 md:p-8 rounded-lg">
-      <button
-        type="button"
-        onClick={() => handleSave()}
-        className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 float-end"
-      >
-        Save
-      </button>
       <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
         <div className="p-6 bg-gradient-to-r from-blue-500 to-blue-600 text-white">
           <h1 className="text-3xl font-bold">{location.name}</h1>

@@ -8,13 +8,6 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         allowNull: false,
       },
-      forecastdayId: {
-        type: DataTypes.UUID,
-        references: {
-          model: "forecastday",
-          key: "id",
-        },
-      },
     },
     { timestamps: true }
   );

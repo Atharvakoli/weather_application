@@ -1,89 +1,23 @@
+import { useContext } from "react";
+import { WeatherContext } from "../../context/dataFetchContext";
+
 const Hour = () => {
-  const data = [
-    {
-      time_epoch: 1734633000,
-      time: "2024-12-20 00:00",
-      temp_c: 21,
-      temp_f: 69.8,
-      is_day: 0,
-      condition: {
-        text: "Clear ",
-        icon: "//cdn.weatherapi.com/weather/64x64/night/113.png",
-        code: 1000,
-      },
-      wind_mph: 2.9,
-      wind_kph: 4.7,
-      wind_degree: 43,
-      wind_dir: "NE",
-      pressure_mb: 1012,
-      pressure_in: 29.87,
-      precip_mm: 0,
-      precip_in: 0,
-      snow_cm: 0,
-      humidity: 68,
-      cloud: 0,
-      feelslike_c: 21,
-      feelslike_f: 69.8,
-      windchill_c: 21,
-      windchill_f: 69.8,
-      heatindex_c: 24.4,
-      heatindex_f: 75.9,
-      dewpoint_c: 15,
-      dewpoint_f: 59,
-      will_it_rain: 0,
-      chance_of_rain: 0,
-      will_it_snow: 0,
-      chance_of_snow: 0,
-      vis_km: 10,
-      vis_miles: 6,
-      gust_mph: 5.5,
-      gust_kph: 8.9,
-      uv: 0,
-    },
-    {
-      time_epoch: 1734636600,
-      time: "2024-12-20 01:00",
-      temp_c: 20.8,
-      temp_f: 69.4,
-      is_day: 0,
-      condition: {
-        text: "Clear ",
-        icon: "//cdn.weatherapi.com/weather/64x64/night/113.png",
-        code: 1000,
-      },
-      wind_mph: 3.1,
-      wind_kph: 5,
-      wind_degree: 31,
-      wind_dir: "NNE",
-      pressure_mb: 1011,
-      pressure_in: 29.86,
-      precip_mm: 0,
-      precip_in: 0,
-      snow_cm: 0,
-      humidity: 67,
-      cloud: 0,
-      feelslike_c: 20.8,
-      feelslike_f: 69.4,
-      windchill_c: 20.8,
-      windchill_f: 69.4,
-      heatindex_c: 20.8,
-      heatindex_f: 69.4,
-      dewpoint_c: 14.5,
-      dewpoint_f: 58.1,
-      will_it_rain: 0,
-      chance_of_rain: 0,
-      will_it_snow: 0,
-      chance_of_snow: 0,
-      vis_km: 10,
-      vis_miles: 6,
-      gust_mph: 6,
-      gust_kph: 9.7,
-      uv: 0,
-    },
-  ];
+  const { weatherState } = useContext(WeatherContext);
+  const { weathers } = weatherState.weathers;
+  const forecast =
+    Array.isArray(weathers) && weathers.map((data) => data.forecast);
+  const hours = forecast.map((data) => data.forecastday.hour);
+
+  let hourDetails = [];
+  for (const hour of hours) {
+    for (const hourData of hour) {
+      hourDetails.push(hourData);
+    }
+  }
+
   return (
-    <div className="bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center gap-2 p-4">
-      {data.map((data, index) => (
+    <div className="grid grid-cols-3 gap-4 bg-gradient-to-br from-blue-500 to-purple-600 p-4">
+      {hourDetails.map((data, index) => (
         <div
           key={index}
           className="bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg shadow-xl p-6 max-w-2xl w-full"

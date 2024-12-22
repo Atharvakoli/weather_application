@@ -101,17 +101,15 @@ const WeatherApp = () => {
           >
             <h3 className="text-lg font-semibold mb-2">Alerts</h3>
             {alerts && alerts.alert.length > 1 ? (
-              alerts.map((data, index) => (
-                <>
-                  <h2 key={index} className="text-2xl font-bold">
-                    {data.event}
-                  </h2>
+              alerts.alert.map((data, index) => (
+                <div key={index}>
+                  <h2 className="text-2xl font-bold">{data.event}</h2>
                   <span
                     className={`px-3 py-1 rounded-full text-sm font-semibold bg-gray-500 text-white`}
                   >
                     {data.urgency}
                   </span>
-                </>
+                </div>
               ))
             ) : (
               <p>No current weather alerts</p>

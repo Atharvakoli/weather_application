@@ -7,15 +7,6 @@ module.exports = {
         primaryKey: true,
         allowNull: false,
       },
-      forecastdayId: {
-        type: Sequelize.UUID,
-        references: {
-          model: "forecastdays",
-          key: "id",
-        },
-        onUpdate: "CASCADE",
-        onDelete: "SET NULL",
-      },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,

@@ -1,27 +1,28 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("forecastdays", {
+    await queryInterface.createTable("conditions", {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
+      },
+      text: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
-      date: Sequelize.STRING,
-      date_epoch: Sequelize.BIGINT,
-      dayId: {
-        type: Sequelize.UUID,
-        references: {
-          model: "days",
-          key: "id",
-        },
-        onUpdate: "CASCADE",
-        onDelete: "SET NULL",
+      icon: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
-      astroId: {
+      code: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      currentId: {
         type: Sequelize.UUID,
+        allowNull: true,
         references: {
-          model: "astros",
+          model: "currents",
           key: "id",
         },
         onUpdate: "CASCADE",
@@ -29,8 +30,19 @@ module.exports = {
       },
       hourId: {
         type: Sequelize.UUID,
+        allowNull: true,
         references: {
           model: "hours",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
+      },
+      dayId: {
+        type: Sequelize.UUID,
+        allowNull: true,
+        references: {
+          model: "days",
           key: "id",
         },
         onUpdate: "CASCADE",
@@ -46,7 +58,8 @@ module.exports = {
       },
     });
   },
+
   down: async (queryInterface) => {
-    await queryInterface.dropTable("forecastdays");
+    await queryInterface.dropTable("conditions");
   },
 };

@@ -26,10 +26,11 @@ module.exports = {
       daily_will_it_snow: Sequelize.BOOLEAN,
       daily_chance_of_snow: Sequelize.INTEGER,
       uv: Sequelize.FLOAT,
-      conditionId: {
+      forecastdayId: {
         type: Sequelize.UUID,
+        allowNull: false,
         references: {
-          model: "conditions",
+          model: "forecastdays",
           key: "id",
         },
         onUpdate: "CASCADE",

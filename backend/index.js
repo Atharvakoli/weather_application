@@ -16,16 +16,7 @@ const {
   weatherAstronomy,
   weatherTimeZone,
 } = require("./controllers/wheatherData.controller");
-const {
-  addLocation,
-  addCurrent,
-  addForecast,
-  addForecastday,
-  addDay,
-  addHour,
-  addCondition,
-  addAstro,
-} = require("./controllers/wheather.controller");
+const { addWeather, getWeather } = require("./controllers/wheather.controller");
 
 let PORT = process.env.PORT;
 
@@ -50,14 +41,8 @@ app.get("/weather_marine", weatherMarine);
 app.get("/weather_astronomy", weatherAstronomy);
 app.get("/weather_timezone", weatherTimeZone);
 
-app.post("/location", addLocation);
-app.post("/current", addCurrent);
-app.post("/forecast", addForecast);
-app.post("/forecastday", addForecastday);
-app.post("/day", addDay);
-app.post("/astro", addAstro);
-app.post("/hour", addHour);
-app.post("/condition", addCondition);
+app.post("/weathers", addWeather);
+app.get("/weathers", getWeather);
 
 app.get("/user/profile/github", verifyAccessToken, async (req, res) => {
   try {

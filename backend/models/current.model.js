@@ -13,13 +13,6 @@ module.exports = (sequelize, DataTypes) => {
       temp_c: DataTypes.FLOAT,
       temp_f: DataTypes.FLOAT,
       is_day: DataTypes.INTEGER,
-      conditionId: {
-        type: DataTypes.UUID,
-        references: {
-          model: "condition",
-          key: "id",
-        },
-      },
       wind_mph: DataTypes.FLOAT,
       wind_kph: DataTypes.FLOAT,
       wind_degree: DataTypes.INTEGER,

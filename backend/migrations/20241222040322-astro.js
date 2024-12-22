@@ -15,6 +15,16 @@ module.exports = {
       moon_illumination: Sequelize.INTEGER,
       is_moon_up: Sequelize.BOOLEAN,
       is_sun_up: Sequelize.BOOLEAN,
+      forecastdayId: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: "forecastdays",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
+      },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,

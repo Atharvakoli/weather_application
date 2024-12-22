@@ -1,13 +1,47 @@
+import { useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { useEffect } from "react";
 import { Outlet, useNavigate, Link } from "react-router-dom";
+import { WeatherContext } from "../../context/dataFetchContext";
+import Timer from "./Timer";
 
 const Admin = () => {
+  const { weatherState, postData, getData } = useContext(WeatherContext);
   const navigate = useNavigate();
   let access_token = Cookies.get("access_token_frontend");
+  const { loading, error } = weatherState;
+
+  const [showMessage, setShowMessage] = useState(false);
+
+  const weathers = weatherState.weathers;
+
   useEffect(() => {
     if (!access_token) navigate("/");
   }, [access_token, navigate]);
+
+  const location = weatherState.current_weather.location;
+  const current = weatherState.current_weather.current;
+  const forecast = weatherState.weather_forecast;
+
+  const weatherDetails = {
+    location: {
+      ...location,
+    },
+    current: {
+      ...current,
+    },
+    forecast: {
+      ...forecast.forecast,
+    },
+  };
+
+  const handleShowMessage = () => {
+    setShowMessage(true);
+  };
+
+  const handleCloseMessage = () => {
+    setShowMessage(false);
+  };
+
   return (
     <>
       <div className="max-w-8xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden p-2">
@@ -85,6 +119,80 @@ const Admin = () => {
                 </li>
               </ul>
             </div>
+            {showMessage && (
+              <Timer
+                loading={loading}
+                error={error}
+                message={weathers.message}
+                onClose={handleCloseMessage}
+              />
+            )}
+            <button
+              type="button"
+              onClick={() => postData(weatherDetails, handleShowMessage)}
+              className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+            >
+              {loading ? (
+                <span className="flex items-center">
+                  <svg
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  Searching...
+                </span>
+              ) : (
+                <>Save weather</>
+              )}
+            </button>
+            <button
+              type="button"
+              onClick={() => getData(handleShowMessage)}
+              className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+            >
+              {loading ? (
+                <span className="flex items-center">
+                  <svg
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  Searching...
+                </span>
+              ) : (
+                <>Get weathers</>
+              )}
+            </button>
           </div>
         </nav>
         <Outlet />

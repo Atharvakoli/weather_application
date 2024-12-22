@@ -42,6 +42,4 @@ const setNavigation = (navigation, navigate) => {
   }
 };
 
-function handleSave() {}
-
-export { getWeatherDescription, buildApiUrl, setNavigation, handleSave };
+export { getWeatherDescription, buildApiUrl, setNavigation };

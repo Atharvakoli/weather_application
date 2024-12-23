@@ -37,8 +37,6 @@ const Navbar = () => {
     locationRef.current.value = null;
   };
 
-  console.log(location.pathname);
-
   return (
     <nav className="bg-sky-500 p-4 shadow-md">
       <div className="container mx-auto flex flex-wrap items-center justify-between">
@@ -77,6 +75,7 @@ const Navbar = () => {
             </div>
           </div>
         )}
+
         <div className="flex items-center space-x-4">
           <Link to="/">Weather</Link>
           {!accessToken ? (

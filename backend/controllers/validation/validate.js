@@ -20,7 +20,7 @@ const validateHistoryDetails = (q, dt) => {
   const input = new Date(dt);
   if (input < date)
     errors.push(
-      `Date should be greater then ${date.toISOString().split("T")[0]}`
+      `Date should be greater then ${date.toISOString()?.split("T")[0]}`
     );
   return errors;
 };

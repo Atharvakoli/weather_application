@@ -33,7 +33,6 @@ const router = createBrowserRouter(
         <Route path="admin" element={<Admin />}>
           <Route index element={<Location />} />
           <Route path="current" element={<Current />} />
-          <Route path="forecast" element={<Forecasts />} />
           <Route path="forecastday" element={<Forecastday />} />
           <Route path="day" element={<Day />} />
           <Route path="hour" element={<Hour />} />

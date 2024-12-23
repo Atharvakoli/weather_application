@@ -6,12 +6,14 @@ const Hour = () => {
   const { weathers } = weatherState.weathers;
   const forecast =
     Array.isArray(weathers) && weathers.map((data) => data.forecast);
-  const hours = forecast.map((data) => data.forecastday.hour);
+  const hours = forecast && forecast.map((data) => data.forecastday.hour);
 
   let hourDetails = [];
-  for (const hour of hours) {
-    for (const hourData of hour) {
-      hourDetails.push(hourData);
+  if (hours && Array.isArray(hours)) {
+    for (const hour of hours) {
+      for (const hourData of hour) {
+        hourDetails.push(hourData);
+      }
     }
   }
 

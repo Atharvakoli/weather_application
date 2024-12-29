@@ -1,0 +1,17 @@
+{
+  "name": "wheather_app",
+  "version": "1.0.0",
+  "description": "> running applications > => just make sure your in root directory > => First Step open console and write command \"npm install\" > => second step write command \"npm run dev\" > Now you both frontend and backend server will start",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "concurrently \"cd backend && npm i\" \"cd frontend && npm i\"",
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^9.1.0"
+  }
+}

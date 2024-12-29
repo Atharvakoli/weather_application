@@ -6,12 +6,12 @@ const Marine = () => {
   const [selectedDay, setSelectedDay] = useState(0);
   const { weatherState } = useContext(WeatherContext);
 
-  if (!weatherState?.weather_marine?.forecast?.forecastday) {
+  let forecastday = weatherState.weather_marine.forecast.forecastday;
+
+  if (!forecastday) {
     return <p>Loading weather data...</p>;
   }
-
-  const forecastDays = weatherState.weather_marine.forecast.forecastday;
-  const selectedForecast = forecastDays[selectedDay];
+  const selectedForecast = forecastday[selectedDay];
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
@@ -24,25 +24,22 @@ const Marine = () => {
           <p className="text-gray-600 mb-8">
             {weatherState.weather_marine.location.country}
           </p>
-
-          {/* Day Selection Buttons */}
           <div className="flex space-x-4 mb-8">
-            {forecastDays.map((day, index) => (
-              <button
-                key={day.date}
-                className={`px-4 py-2 rounded-full ${
-                  selectedDay === index
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200"
-                }`}
-                onClick={() => setSelectedDay(index)}
-              >
-                {day.date}
-              </button>
-            ))}
+            {Array.isArray(forecastday) &&
+              forecastday.map((day, index) => (
+                <button
+                  key={day.date}
+                  className={`px-4 py-2 rounded-full ${
+                    selectedDay === index
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-200"
+                  }`}
+                  onClick={() => setSelectedDay(index)}
+                >
+                  {day.date}
+                </button>
+              ))}
           </div>
-
-          {/* Selected Day Weather */}
           <div className="grid grid-cols-2 gap-8">
             <div>
               <h2 className="text-2xl font-semibold mb-4">
@@ -94,27 +91,27 @@ const Marine = () => {
                 </div>
               </div>
             </div>
-
-            {/* Hourly Forecast */}
             <div>
               <h2 className="text-2xl font-semibold mb-4">Hourly Forecast</h2>
               <div className="space-y-2 h-64 overflow-y-auto">
-                {selectedForecast.hour.map((hour, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between bg-gray-100 p-2 rounded"
-                  >
-                    <p>{hour.time.split(" ")[1]}</p>
-                    <div className="flex items-center">
-                      <img
-                        src={hour.condition.icon}
-                        alt="Weather icon"
-                        className="w-8 h-8 mr-2"
-                      />
-                      <p>{hour.temp_c}°C</p>
+                {selectedForecast.hour &&
+                  Array.isArray(selectedForecast.hour) &&
+                  selectedForecast.hour.map((hour, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between bg-gray-100 p-2 rounded"
+                    >
+                      <p>{hour.time.split(" ")[1]}</p>
+                      <div className="flex items-center">
+                        <img
+                          src={hour.condition.icon}
+                          alt="Weather icon"
+                          className="w-8 h-8 mr-2"
+                        />
+                        <p>{hour.temp_c}°C</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </div>
             </div>
           </div>

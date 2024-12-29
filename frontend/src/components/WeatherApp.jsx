@@ -49,11 +49,6 @@ const WeatherApp = () => {
   return (
     <>
       <div className="max-w-8xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden p-2">
-        {error && (
-          <p className="text-red-500 p-2">
-            {error && `${name} Weather NOT FOUND`}
-          </p>
-        )}
         {loading && (
           <>
             <span className="flex items-center">

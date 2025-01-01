@@ -16,6 +16,14 @@ module.exports = (sequelize, DataTypes) => {
       tz_id: DataTypes.STRING,
       localtime_epoch: DataTypes.BIGINT,
       localtime: DataTypes.DATE,
+      userId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        references: {
+          model: "user",
+          key: "id",
+        },
+      },
     },
     { timestamps: true }
   );
